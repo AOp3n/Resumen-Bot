@@ -2,9 +2,9 @@
 
 {
   "(E)": "Emisiones TXT",
-  "(M)": "Manga en Emision TXT",
-  "(AE)": "Anime en Eemision no TXT",
-  "(ME)": "Manga en Emision no TXT",
+  "(M)": "Manga en Emision TXTy no TXT",
+  "(AE)": "Anime en Emision no TXT",
+
   "(I)": "Informacion",
   "(S)": "Subtitulos",
   "(#)": "Otros"
