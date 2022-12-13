@@ -1,3 +1,5 @@
+import re
+
 from config import *
 from datetime import datetime, timedelta
 
@@ -6,18 +8,25 @@ from pyrogram import Client, filters, enums, idle
 
 bot = Client("my_account", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-
 filter = filters.chat(CHANNEL_ID) & filters.incoming & filters.regex(r"[\u2622\uFE0F](\(\S{1,2}\)).+")
 
 
 @bot.on_message(filter)
 @bot.on_edited_message(filter)
 async def add_to_resume(_, message):
-
     resume_message = (await bot.get_chat(CHANNEL_ID)).pinned_message
-    sections = resume_message.text.markdown.split("\n❌")
+    resume_text = resume_message.text.markdown
+    title = (message.text or message.caption).split('\n')[0]
 
-    title = message.matches[0].group(0)
+    if message.link in resume_text:
+        updated_resume = resume_text.replace(re.search(f"\[(.+)\]\({message.link}\)",
+                                                       resume_text)[1], title)
+
+        await resume_message.edit_text(text=updated_resume, parse_mode=enums.ParseMode.MARKDOWN,
+                                       disable_web_page_preview=True)
+        return
+
+    sections = resume_text.split("\n❌")
     substring_to_search = message.matches[0].group(1)
     types_acronym = list(types.keys())
 
