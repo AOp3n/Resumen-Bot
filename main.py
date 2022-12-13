@@ -22,8 +22,10 @@ async def add_to_resume(_, message):
         updated_resume = resume_text.replace(re.search(f"\[(.+)\]\({message.link}\)",
                                                        resume_text)[1], title)
 
-        await resume_message.edit_text(text=updated_resume, parse_mode=enums.ParseMode.MARKDOWN,
+        if updated_resume != resume_message:
+            await resume_message.edit_text(text=updated_resume, parse_mode=enums.ParseMode.MARKDOWN,
                                        disable_web_page_preview=True)
+        
         return
 
     sections = resume_text.split("\n❌")
