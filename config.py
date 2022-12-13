@@ -5,7 +5,7 @@ API_ID: int = int(os.getenv("API_ID"))
 API_HASH: str = os.getenv("API_HASH")
 BOT_TOKEN: str = os.getenv("BOT_TOKEN")
 CHANNEL_ID: int = int(os.getenv("CHANNEL_ID"))
-HOURS: int = int(os.getenv("HOURS", 12))
+
 
 
 def get_clasifications():
